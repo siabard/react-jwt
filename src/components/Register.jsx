@@ -4,8 +4,9 @@ import {
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import axios from '../api/axios';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from '../api/axios';
 
 const USER_REGEX = /^[a-zA-Z][a-zA-Z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -56,7 +57,7 @@ const Register = () => {
     setErrMsg('');
   }, [user, pwd, matchPwd]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const v1 = USER_REGEX.test(user);
@@ -105,7 +106,7 @@ const Register = () => {
         <section>
           <h1>Success!</h1>
           <p>
-            <a href="#">Sign In</a>
+            <Link to="/login">Sign In</Link>
           </p>
         </section>
       ) : (
@@ -133,7 +134,7 @@ const Register = () => {
               id="username"
               ref={userRef}
               autoComplete="off"
-              onChange={e => setUser(e.target.value)}
+              onChange={(e) => setUser(e.target.value)}
               value={user}
               required
               aria-invalid={validName ? 'false' : 'true'}
@@ -166,7 +167,7 @@ const Register = () => {
             <input
               type="password"
               id="password"
-              onChange={e => setPwd(e.target.value)}
+              onChange={(e) => setPwd(e.target.value)}
               value={pwd}
               required
               aria-invalid={validPwd ? 'false' : 'true'}
@@ -203,7 +204,7 @@ const Register = () => {
             <input
               type="password"
               id="confirm_pwd"
-              onChange={e => setMatchPwd(e.target.value)}
+              onChange={(e) => setMatchPwd(e.target.value)}
               value={matchPwd}
               required
               aria-invalid={validMatch ? 'false' : 'true'}
@@ -231,7 +232,7 @@ const Register = () => {
             Already registerd?
             <br />
             <span className="line">
-              <a href="#">Sign In</a>
+              <Link to="/login">Sign In</Link>
             </span>
           </p>
         </section>

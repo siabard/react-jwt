@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import axios from '../api/axios';
 import useAuth from '../hooks/useAuth';
 
@@ -27,7 +27,7 @@ const Login = () => {
     setErrMsg('');
   }, [user, pwd]);
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
@@ -77,7 +77,7 @@ const Login = () => {
           id="username"
           ref={userRef}
           autoComplete="off"
-          onChange={e => setUser(e.target.value)}
+          onChange={(e) => setUser(e.target.value)}
           value={user}
           required
         />
@@ -86,7 +86,7 @@ const Login = () => {
           type="password"
           id="password"
           autoComplete="off"
-          onChange={e => setPwd(e.target.value)}
+          onChange={(e) => setPwd(e.target.value)}
           value={pwd}
           required
         />
@@ -95,7 +95,7 @@ const Login = () => {
       <p>
         Need an Account?
         <br />
-        <a href="#">Sign Up</a>
+        <Link to="/register">Sign Up</Link>
       </p>
     </section>
   );
