@@ -8,6 +8,7 @@ import LinkPage from './components/LinkPage';
 import Login from './components/Login';
 import Lounge from './components/Lounge';
 import Missing from './components/Missing';
+import PersistLogin from './components/PersistLogin';
 import Register from './components/Register';
 import RequireAuth from './components/RequireAuth';
 import Unauthorized from './components/Unauthroized';
@@ -22,44 +23,47 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
+        {/* public route */}
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
         <Route path="linkpage" element={<LinkPage />} />
         <Route path="unauthroized" element={<Unauthorized />} />
 
-        <Route
-          element={
-            <RequireAuth
-              allowedRoles={[
-                ROLES_LIST.ADMIN,
-                ROLES_LIST.EDITOR,
-                ROLES_LIST.USER,
-              ]}
-            />
-          }
-        >
-          <Route path="/" element={<Home />} />
+        {/* protected route */}
+        <Route element={<PersistLogin />}>
+          <Route
+            element={
+              <RequireAuth
+                allowedRoles={[
+                  ROLES_LIST.ADMIN,
+                  ROLES_LIST.EDITOR,
+                  ROLES_LIST.USER,
+                ]}
+              />
+            }
+          >
+            <Route path="/" element={<Home />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.EDITOR]} />}>
+            <Route path="editor" element={<Editor />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={[ROLES_LIST.ADMIN]} />}>
+            <Route path="admin" element={<Admin />} />
+          </Route>
+          <Route
+            element={
+              <RequireAuth
+                allowedRoles={[
+                  ROLES_LIST.ADMIN,
+                  ROLES_LIST.EDITOR,
+                  ROLES_LIST.USER,
+                ]}
+              />
+            }
+          >
+            <Route path="lounge" element={<Lounge />} />
+          </Route>
         </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES_LIST.EDITOR]} />}>
-          <Route path="editor" element={<Editor />} />
-        </Route>
-        <Route element={<RequireAuth allowedRoles={[ROLES_LIST.ADMIN]} />}>
-          <Route path="admin" element={<Admin />} />
-        </Route>
-        <Route
-          element={
-            <RequireAuth
-              allowedRoles={[
-                ROLES_LIST.ADMIN,
-                ROLES_LIST.EDITOR,
-                ROLES_LIST.USER,
-              ]}
-            />
-          }
-        >
-          <Route path="lounge" element={<Lounge />} />
-        </Route>
-
         <Route path="*" element={<Missing />} />
       </Route>
     </Routes>

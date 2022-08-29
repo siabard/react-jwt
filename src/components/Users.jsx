@@ -14,7 +14,7 @@ const Users = () => {
 
     const getUsers = async () => {
       try {
-        const response = await axiosPrivate.get('/employee', {
+        const response = await axiosPrivate.get('/users', {
           signal: controller.signal,
         });
         isMounted && setUsers(response.data);
@@ -38,9 +38,7 @@ const Users = () => {
       {users?.length ? (
         <ul>
           {users.map((user, i) => (
-            <li key={i}>
-              {user?.firstname} {user?.lastname}
-            </li>
+            <li key={i}>{user?.username}</li>
           ))}
         </ul>
       ) : (
